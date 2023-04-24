@@ -19,6 +19,15 @@ nav ul li a{
 .nav-link .fas {
     color: black;
 }
+.post-nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: #158571E5 !important;
+}
+
 /* Header */
 header{
     background-image: url("../img/hero.png");
@@ -36,6 +45,12 @@ header{
     background-color: #14C38E;
     border-color: #14C38E;
 }
+
+/* Post content */
+.post-content{
+    margin-top: 8rem;
+}
+
 /* Footer */
 footer {
     margin-top: 5rem;
