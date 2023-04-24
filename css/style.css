@@ -1,49 +1,55 @@
+/* Navigation */
 .navbar {
     background-color: rgba(255, 255, 255, 0.5) !important;
     border-color: red !important;
     color: white !important;
     height: 80px;
-  }
-  
-  
+}
 nav .navbar-brand img{
     margin-top: 3rem;
     width: auto;
     height: 120px;
 }
-
 nav ul li a{
     color: black !important;
 }
-
 .nav-link {
     margin-right: 40px;
-  }
-  
+}
 .nav-link .fas {
     color: black;
-  }
-  
-
+}
+/* Header */
 header{
     background-image: url("../img/hero.png");
     min-height: 40vh;
     background-size: cover;
 }
-
+/* Post box */
 .post-box {
     background-color: #B9F8D380;
     padding: 2rem;
     border-radius: 1rem;
     margin-top: 5rem;
-  }
-  
-  .post-box .btn-primary {
+}
+.post-box .btn-primary {
     background-color: #14C38E;
     border-color: #14C38E;
-  }
+}
+/* Footer */
+footer {
+    margin-top: 5rem;
+    background-color: #005F82;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    bottom: 0;
+    width: 100%;
+}
 .social-icons{
+    padding: 1rem;
     display: flex;
     justify-content: center;
-    
+}
+.social-icons a img {
+    margin-right: 8rem;
 }
