@@ -51,6 +51,47 @@ header{
     margin-top: 8rem;
 }
 
+/* carousel */
+.carousel .btn-primary ,.btn-secondary{
+    background-color: #5FC65D;
+}
+
+.carousel .profile{
+    margin-top: 1rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    background: rgba(93, 181, 187, 0.5);
+
+}
+
+.carousel .carousel-inner img{
+  
+}
+
+.box1 ,.box2{
+    border-radius: 1rem;
+    padding: 0.5rem;
+    width: 300px;
+    background: rgba(37, 119, 70, 0.5);
+}
+
+.box2 .btn-primary , .btn-secondary{
+    background: rgba(38, 150, 214, 0.75);
+}
+
+/* details */
+.details{
+    border-radius: 1rem;
+    padding: 1rem;
+    width: 600px;
+    height: auto;
+    background-color: #9FDA8B;
+}
+
+.details p{
+    
+}
+
 /* Footer */
 footer {
     margin-top: 5rem;
@@ -68,3 +109,4 @@ footer {
 .social-icons a img {
     margin-right: 8rem;
 }
+
