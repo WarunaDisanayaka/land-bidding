@@ -16,11 +16,11 @@
 <header>
     <!-- Sidebar -->
     <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse ">
-      <div class="position-sticky">
-        <div class="list-group list-group-flush mx-3 mt-4">
-         <p class="text-light mt-5">Edit Profile</p>
-         <p class="text-light">Create Post</p>
-         <p class="text-light">My bidding</p>
+      <div class="position-sticky item">
+        <div class="list-group list-group-flush mt-4">
+         <p class="text-light px-4 my-3">Edit Profile</p>
+         <p class="text-light px-4 my-3">Create Post</p>
+         <p class="text-light px-4 my-3 py-2 ripple active">My bidding</p>
         </div>
       </div>
     </nav>
@@ -30,18 +30,7 @@
     <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top">
       <!-- Container wrapper -->
       <div class="container-fluid">
-        <!-- Toggle button -->
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-mdb-toggle="collapse"
-          data-mdb-target="#sidebarMenu"
-          aria-controls="sidebarMenu"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <i class="fas fa-bars"></i>
-        </button>
+        
   
         <!-- Brand -->
         <a class="navbar-brand" href="#">
@@ -53,40 +42,70 @@
           />
         </a>
         
-        
-  
         <!-- Right links -->
         <ul class="navbar-nav ms-auto d-flex flex-row ">
-          <!-- Notification dropdown -->
           
-         
           <!-- Name -->
             <a class="nav-link text-light" href="#">
               <h5>Ser Criston Cole's Account</h5>
             </a>
-          
-            <a class="navbar-brand" href="#">
+
+          <!-- Icon -->
+            <a class="navbar-brand " href="#">
                 <img src="user.jpg" alt="Avatar Logo" style="width:40px;" class="rounded-pill"> 
               </a>
-  
-         
         </ul>
       </div>
+
       <!-- Container wrapper -->
     </nav>
     <!-- Navbar -->
   </header>
   <!--Main Navigation-->
   
+
+
+
   <!--Main layout-->
   <main style="margin-top: 58px;">
-    <div class="container pt-4"></div>
+    <div class="mg pt-4"></div>
+
+    <h1>My Biddings</h1>
+    
+
+    <div class="container my-4">
+        <table class="table mx-auto" border="1">
+           <thead>
+              <tr>
+                 <th>Bid Id</th>
+                 <th>Date</th>
+                 <th>Land</th>
+                 <th>Status</th>
+              </tr>
+           </thead>
+           <tbody>
+              <tr>
+                 <td>0245</td>
+                 <td>18-Jan-2023</td>
+                 <td>UNRESERVED AUCTION EVENT-<br>
+                    HWY FRONTAGE LOT IN BANKEND
+                    SK</td>
+                 <td>Review</td>
+              </tr>
+              <tr>
+                 <td>23252</td>
+                 <td>18-Feb-2023</td>
+                 <td>UNRESERVED AUCTION EVENT-<br>
+                    HWY FRONTAGE LOT IN BANKEND
+                    SK</td>
+                 <td>Done</td>
+              </tr>
+           </tbody>
+        </table>
+     </div>
+
   </main>
   <!--Main layout-->
-
-
-
-
 
 
    </body>
