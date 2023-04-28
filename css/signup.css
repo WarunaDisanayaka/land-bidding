@@ -1,0 +1,55 @@
+/* Signup */
+.signup {}
+
+.signup .image {
+  background-color: #3B596D;
+}
+
+.side-one {
+  margin-left: 0rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-image: url("../img/signup.png");
+  background-size: 95%;
+  background-repeat: no-repeat;
+  margin-top: 7rem;
+  border-top-right-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+}
+
+.side-two {
+  background-color: #3B596D;
+}
+
+.side-two .image img {
+
+  margin-top: 12rem;
+}
+
+.side-two .side-img img {
+
+  margin-left: 5rem;
+}
+
+.form-control,
+.form-select {
+  background: transparent;
+  border: none;
+  width: 30rem;
+  border-bottom: 1px solid #000000;
+  outline: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.signup .btn {
+  background: rgba(17, 149, 159, 0.9);
+  border-radius: 20px;
+  width: 347px;
+  height: 41px;
+  left: 137px;
+  top: 743px;
+
+}

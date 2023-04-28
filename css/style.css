@@ -92,6 +92,37 @@ header{
     
 }
 
+/* Signup */
+.signup{
+    padding: 2rem;
+    background-image: url("../img/signup.png");
+    background-size: 50%;
+    background-repeat: no-repeat;
+    margin-top: 8rem;
+}
+
+.signup .image{
+    background-color: #3B596D;
+}
+.side-one {
+    background-color: red;
+  }
+  
+  .side-two {
+    background-color: green;
+  }
+  
+
+.form-control {
+    background: transparent;
+    border: none;
+    width: 30rem;
+    border-bottom: 1px solid #000000;
+    outline:none;
+    box-shadow:none;
+    border-radius: 0;
+  }
+  
 /* Footer */
 footer {
     margin-top: 5rem;
