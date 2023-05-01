@@ -2,10 +2,12 @@ body {
   background-color: #fbfbfb;
 }
 
-@media (min-width: 991.98px) {
-  main {
-    padding-left: 240px;
-  }
+/* Nav */
+.navbar-brand .logo {
+  position: absolute;
+  height: 80px;
+  width: auto;
+  margin-top: -1.5rem;
 }
 
 /* Sidebar */
@@ -69,4 +71,24 @@ h1 {
   top: 30%;
   left: 60%;
   transform: translate(-50%, -50%);
+}
+
+/* Profile */
+.profile-data label {
+  font-weight: bold;
+}
+
+.profile-data input,
+.form-select,
+#datepicker, #floatingTextarea2 {
+  border-radius: 0;
+  background-color: #ABDE78;
+  width: 30rem;
+}
+
+/* Media queries */
+@media (min-width: 991.98px) {
+  main {
+    padding-left: 240px;
+  }
 }
