@@ -14,7 +14,6 @@
 </head>
 
 <body>
-
     <!-- Form -->
     <div class="container-fluid signup">
         <div class="row">
@@ -35,7 +34,6 @@
                         <button type="submit" class="btn btn-primary">Sign In</button>
                         <div class="register">Don't have an account? Register</div>
                     </form>
-
                 </div>
             </div>
             <div class="col-md-6 side-two">
