@@ -1,3 +1,99 @@
+<?php
+
+include 'config/db.php';
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Retrieve form data
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $dob = $_POST['dob'];
+    $gender = $_POST['gender'];
+    $address = $_POST['address'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm-password'];
+
+    // Validate form data
+    $errors = array();
+
+    if (empty($name)) {
+        $errors[] = 'Name is required';
+    }
+
+    if (empty($email)) {
+        $errors[] = 'Email is required';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = 'Invalid email format';
+    }
+
+    if (empty($phone)) {
+        $errors[] = 'Phone is required';
+    }
+
+    if (empty($dob)) {
+        $errors[] = 'Date of Birth is required';
+    }
+
+    if (empty($gender)) {
+        $errors[] = 'Gender is required';
+    }
+
+    if (empty($address)) {
+        $errors[] = 'Address is required';
+    }
+
+    if (empty($password)) {
+        $errors[] = 'Password is required';
+    } elseif (strlen($password) < 8) {
+        $errors[] = 'Password must be at least 8 characters long';
+    }
+
+    if ($password !== $confirm_password) {
+        $errors[] = 'Passwords do not match';
+    }
+
+    // Display errors
+    if (!empty($errors)) {
+        echo '<div class="alert alert-danger" style="position:absolute;width:40rem; margin-top:-1rem; margin-left:2rem;">';
+        echo '<ul>';
+        foreach ($errors as $error) {
+            echo '<li>' . $error . '</li>';
+        }
+        echo '</ul>';
+        echo '</div>';
+    }
+
+    // If there are no errors, insert data into database
+    if (empty($errors)) {
+
+        if (!$db_conn) {
+            die('Database connection error: ' . mysqli_connect_error());
+        }
+
+        // Prepare insert query
+        $query = "INSERT INTO users (name, email, phone, dob, gender, address, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        $stmt = mysqli_prepare($db_conn, $query);
+
+        if (!$stmt) {
+            die('Database error: ' . mysqli_error($db_conn));
+        }
+
+        mysqli_stmt_bind_param($stmt, 'sssssss', $name, $email, $phone, $dob, $gender, $address, $password);
+
+        // Execute insert query
+        if (mysqli_stmt_execute($stmt)) {
+            // Redirect to success page
+            header('Location: success.php');
+            exit;
+        } else {
+            die('Database error: ' . mysqli_error($db_conn));
+        }
+    }
+}
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -14,32 +110,37 @@
 </head>
 
 <body>
-
     <!-- Form -->
+   
     <div class="container-fluid signup">
+        
         <div class="row">
+            
             <div class="col-md-6 side-one">
                 <div class="form">
-                    <form>
+                    
+                
+                    <form action="register.php" method="POST">
+                    
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <input type="text" class="form-control" id="name" name="name" >
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <input type="email" class="form-control" id="email" name="email" >
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Phone</label>
-                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                            <input type="tel" class="form-control" id="phone" name="phone" >
                         </div>
                         <div class="mb-3">
                             <label for="dob" class="form-label">Date of Birth</label>
-                            <input type="date" class="form-control" id="dob" name="dob" required>
+                            <input type="date" class="form-control" id="dob" name="dob" >
                         </div>
                         <div class="mb-3">
                             <label for="gender" class="form-label">Gender</label>
-                            <select class="form-select" id="gender" name="gender" required>
+                            <select class="form-select" id="gender" name="gender" >
                                 <option value="">Select gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -48,22 +149,22 @@
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">Address</label>
-                            <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+                            <textarea class="form-control" id="address" name="address" rows="3" ></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="id-proof" class="form-label">ID Proof</label>
                             <input type="file" class="form-control" id="id-proof" name="id-proof" accept="image/*"
-                                required>
+                                >
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password" name="password" minlength="8"
-                                required>
+                                >
                         </div>
                         <div class="mb-3">
                             <label for="confirm-password" class="form-label">Confirm Password</label>
                             <input type="password" class="form-control" id="confirm-password" name="confirm-password"
-                                minlength="8" required>
+                                minlength="8" >
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

@@ -14,7 +14,7 @@
   background-image: url("../img/signup.png");
   background-size: 95%;
   background-repeat: no-repeat;
-  margin-top: 7rem;
+  margin-top: 10rem;
   border-top-right-radius: 3rem;
   border-bottom-right-radius: 3rem;
 }
@@ -52,4 +52,11 @@
   left: 137px;
   top: 743px;
 
+}
+
+/* Error */
+.error {
+  position: absolute;
+  color: red;
+  margin-top: -2rem;
 }
