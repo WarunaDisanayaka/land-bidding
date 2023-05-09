@@ -1,3 +1,5 @@
+<?php $ms = ""; ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -5,102 +7,109 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-    <!-- Include jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- Include Bootstrap -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
-    <!-- Include Bootstrap datepicker plugin -->
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <?php include "header.php" ?>
     <title>Land Bidding</title>
 </head>
 
 <body>
-    <!-- Header -->
-    <!--Main Navigation-->
-    <header>
-        <!-- Sidebar -->
-        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse ">
-            <div class="position-sticky item">
-                <div class="list-group list-group-flush mt-4">
-                    <p class="text-light px-4 my-3 py-2 ripple active"> <a href="index.php">Edit Profile</a> </p>
-                    <p class="text-light px-4 my-3"><a href="createpost.php">Create Post</a></p>
-                    <p class="text-light px-4 my-3 "><a href="index.php">My bidding</a></p>
-                </div>
-            </div>
-        </nav>
-        <!-- Sidebar -->
 
-        <!-- Navbar -->
-        <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top">
-            <!-- Container wrapper -->
-            <div class="container-fluid">
-
-                <!-- Brand -->
-                <a class="navbar-brand" href="#">
-                    <img src="../img/logo.png" class="logo" alt="MDB Logo" loading="lazy" />
-                </a>
-
-                <!-- Right links -->
-                <ul class="navbar-nav ms-auto d-flex flex-row ">
-
-                    <!-- Name -->
-                    <a class="nav-link text-light" href="#">
-                        <h5>Ser Criston Cole's Account</h5>
-                    </a>
-
-                    <!-- Icon -->
-                    <a class="navbar-brand " href="#">
-                        <img src="user.jpg" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
-                    </a>
-                </ul>
-            </div>
-
-            <!-- Container wrapper -->
-        </nav>
-        <!-- Navbar -->
-    </header>
-    <!--Main Navigation-->
+    <!-- include UserLayout.php -->
+    <?php include "UserLayout.php" ?>
 
     <!--Main layout-->
-    <main class="profile-data" style="margin-top: 20rem;">
-        <div class="mg pt-4"></div>
-        <div class="container my-4">
-            <div class="container-fluid">
-                <div class="row">
-                   
-                </div>
-                <div class="d-flex align-items-center justify-content-center">
-    <div class="container createpost">
-        <div class="col">
-            <label for="">Email</label>
-            <input type="text" class="form-control" aria-label="First name">
-        </div>
-        <div class="col">
-            <label for="">Address</label>
-            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-        </div>
-    </div>
-</div>
+    <main class="profile-data" style="margin-top: 15vh;">
 
+        <div class="container-fluid mt-5">
 
-                <div class="row mt-4">
-                   
-                </div>
+            <div class="row mt-3 mb-5">
+                <!-- <h2>Create new Post</h2> -->
+                <?php
+                if (isset($ms)) { ?>
+                    <div class="alert alert-success">
+                        <?php echo $ms ?>
+                    </div>
+                <?php }
+                ?>
             </div>
+            <form action="postcreate.php" method="post" enctype="multipart/form-data">
+                <div class="row mt-5 mb-3">
+                    <h3 class="text-center">Create post</h3>
+                    <div class="col-sm-6 mx-auto mt-5">
+                        <div class="col cp-box">
+                            <label for="">Post Title</label>
+                            <input type="text" class="form-control" aria-label="First name" name="title">
+                        </div>
+                        <div class="col cp-box">
+                            <label for="">Post Description</label>
+                            <textarea class="form-control" name="des" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                        </div>
+                        <div class="col cp-box">
+                            <label for="">Post Image</label>
+                            <input type="file" class="form-control" name="pimg">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row mt-3 mb-3">
+                    <div class="col-sm-6 mx-auto cp-box">
+                        <div class="col mt-2 mb-2">
+                            <label for="">Address</label>
+                            <input type="text" name="address" class="form-control">
+                        </div>
+                        <div class="col mt-2 mb-2">
+                            <label for="">Lease Type</label>
+                            <input type="text" name="lease" class="form-control">
+                        </div>
+                        <div class="col mt-2 mb-2">
+                            <label for="">Start Date</label>
+                            <input type="date" name="start" class="form-control">
+                        </div>
+                        <div class="col mt-2 mb-2">
+                            <label for="">Nearest Town</label>
+                            <input type="text" name="town" class="form-control">
+                        </div>
+                        <div class="col mt-2 mb-2">
+                            <label for="">Nearest Town</label>
+                            <textarea class="form-control" name="map" style="height: 100px"></textarea>
+                        </div>
+                        <br>
+
+                    </div>
+
+                </div>
+                <div class="col-sm-6 mt-2 mb-2 mx-auto">
+                    <input type="submit" class="btn btn-success" name="cpost" value="Submit">
+                </div>
+            </form>
+
+
+
         </div>
+
     </main>
     <!--Main layout-->
+
+    <style>
+        .cp-box {
+            padding: 15px;
+            margin: 15px;
+            margin-left: 5px;
+            background-color: #21CC5B;
+        }
+    </style>
+
+
     <script>
-        $(function () {
+        $(function() {
             $('#datepicker').datepicker();
         });
     </script>
+
+
+    
+
+
+
 </body>
 
 </html>

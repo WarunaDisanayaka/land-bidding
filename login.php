@@ -22,7 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['userid'] = $row['id'];
 
             // Redirect to index page after successful login
-            header('Location: index.php');
+            if ($row['role'] == 1) {
+                header('Location: admin/admin.php');
+            }else{
+                header('Location: user/dashboard.php');
+            }
+            
             exit;
         } else {
             // Incorrect password
@@ -58,9 +63,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="form">
                     <form action="login.php" method="POST">
                         <div class="mb-3">
-                            <label for="password" class="form-label">Email or phone</label>
-                            <input type="email" class="form-control" id="name" name="email" required>
-                            <p class="text" style="color:red;"> <?php echo $error_message ?></p>
+                            <label for="email" class="form-label">Email or phone</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                            <p class="text" style="color:red;"> 
+                                <?php 
+                                    if(isset($error_message)){
+                                        echo $error_message ;
+                                    }
+                                    
+                                ?>
+                            </p>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>

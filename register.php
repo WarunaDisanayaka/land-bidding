@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Execute insert query
         if (mysqli_stmt_execute($stmt)) {
             // Redirect to success page
-            header('Location: success.php');
+            header('Location: login.php');
             exit;
         } else {
             die('Database error: ' . mysqli_error($db_conn));
