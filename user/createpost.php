@@ -69,16 +69,14 @@
                             <input type="text" name="town" class="form-control">
                         </div>
                         <div class="col mt-2 mb-2">
-                            <label for="">Nearest Town</label>
+                            <label for="">Map URL</label>
                             <textarea class="form-control" name="map" style="height: 100px"></textarea>
                         </div>
                         <br>
-
                     </div>
-
                 </div>
                 <div class="col-sm-6 mt-2 mb-2 mx-auto">
-                    <input type="submit" class="btn btn-success" name="cpost" value="Submit">
+                    <input type="submit" class="btn btn-success cpbtn" name="cpost" value="Submit">
                 </div>
             </form>
 
@@ -90,10 +88,16 @@
     <!--Main layout-->
 
     <style>
+        input.btn.btn-success.cpbtn{
+            width:8rem;
+            border-radius:2rem;
+            margin-left:30rem;
+        }
         .cp-box {
             padding: 15px;
             margin: 15px;
             margin-left: 5px;
+            width:600px;
             background-color: #21CC5B;
         }
     </style>
