@@ -1,3 +1,42 @@
+<?php
+include 'config/db.php';
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Collect the form data
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Check if the email exists in the database
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $result = $db_conn->query($sql);
+
+    if ($result->num_rows == 1) {
+        // Verify the password
+        $row = $result->fetch_assoc();
+
+        if (password_verify($password, $row['password'])) {
+            // Login successful
+            $_SESSION['email'] = $row['email'];
+            $_SESSION['phone'] = $row['phone'];
+            $_SESSION['userid'] = $row['id'];
+
+            // Redirect to index page after successful login
+            header('Location: index.php');
+            exit;
+        } else {
+            // Incorrect password
+            $error_message = 'Invalid email or password';
+        }
+    } else {
+        // Email not found
+        $error_message = 'Invalid email or password';
+    }
+
+    $db_conn->close();
+}
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,10 +56,11 @@
         <div class="row">
             <div class="col-md-6 side-one">
                 <div class="form">
-                    <form>
+                    <form action="login.php" method="POST">
                         <div class="mb-3">
                             <label for="password" class="form-label">Email or phone</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <input type="email" class="form-control" id="name" name="email" required>
+                            <p class="text" style="color:red;"> <?php echo $error_message ?></p>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>

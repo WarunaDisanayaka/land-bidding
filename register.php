@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $phone = $_POST['phone'];
     $dob = $_POST['dob'];
     $gender = $_POST['gender'];
+    $id_proof = $_FILES['id-proof'];
     $address = $_POST['address'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm-password'];
@@ -43,6 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors[] = 'Address is required';
     }
 
+    // Validate image
+    $allowed_extensions = array('jpg', 'jpeg', 'png', 'webp');
+    $file_extension = pathinfo($id_proof['name'], PATHINFO_EXTENSION);
+    if (empty($id_proof['name']) || !in_array($file_extension, $allowed_extensions)) {
+        $errors[] = 'Invalid image. Please choose a valid image file (jpg, jpeg, or png) with a maximum size of 2MB.';
+    }
+
     if (empty($password)) {
         $errors[] = 'Password is required';
     } elseif (strlen($password) < 8) {
@@ -52,6 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($password !== $confirm_password) {
         $errors[] = 'Passwords do not match';
     }
+
+    // Generate a secure hash of the password
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
 
     // Display errors
     if (!empty($errors)) {
@@ -71,8 +83,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             die('Database connection error: ' . mysqli_connect_error());
         }
 
+        // Move the uploaded document to the upload path
+        $uploadPath = 'uploads/'; // set your upload path here
+        $filename = uniqid() . '_' . $id_proof['name'];
+        $destination = $uploadPath . $filename;
+        if (!move_uploaded_file($id_proof['tmp_name'], $destination)) {
+            $errors[] = 'Failed to upload the document. Please try again.';
+        }
+
         // Prepare insert query
-        $query = "INSERT INTO users (name, email, phone, dob, gender, address, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO users (name, email, phone, dob, gender, address,id_proof, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = mysqli_prepare($db_conn, $query);
 
@@ -80,7 +100,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             die('Database error: ' . mysqli_error($db_conn));
         }
 
-        mysqli_stmt_bind_param($stmt, 'sssssss', $name, $email, $phone, $dob, $gender, $address, $password);
+        mysqli_stmt_bind_param($stmt, 'ssdsssss', $name, $email, $phone, $dob, $gender, $address, $filename, $hashed_password);
+
 
         // Execute insert query
         if (mysqli_stmt_execute($stmt)) {
@@ -120,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="form">
                     
                 
-                    <form action="register.php" method="POST">
+                    <form action="register.php" method="POST" enctype="multipart/form-data">
                     
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
@@ -153,8 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="mb-3">
                             <label for="id-proof" class="form-label">ID Proof</label>
-                            <input type="file" class="form-control" id="id-proof" name="id-proof" accept="image/*"
-                                >
+                            <input type="file" class="form-control" id="id-proof" name="id-proof">
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
