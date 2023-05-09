@@ -10,6 +10,20 @@ $sql = "SELECT * FROM posts WHERE id = '$id'";
 
 $result = mysqli_query($db_conn, $sql);
 
+$bidsql = "SELECT MAX(bid) AS max_bid, userid, COUNT(*) AS bid_count FROM bids WHERE postid = $id";
+
+$max = mysqli_query($db_conn,$bidsql);
+$maxbid = "";
+$muser = "";
+$count = "";
+foreach($max as $m){$maxbid = $m['max_bid']; $muser = $m['userid'];$count = $m['bid_count'];}
+
+$musql = "SELECT name FROM users WHERE id = $muser";
+$maxuser = mysqli_query($db_conn,$musql);
+$musername = "";
+foreach($maxuser as $mu){$musername = $mu['name'];}
+
+
 ?>
 
 
@@ -97,12 +111,12 @@ $result = mysqli_query($db_conn, $sql);
                                 <div class="box2">
                                     <h3>Bidding Details</h3>
                                     <div class="mt-4">
-                                        <p>Current Bid</p>
-                                        <p>Bid Count</p>
-                                        <p>Higher Bidder</p>
+                                        <p>Current Bid : <?php echo $maxbid ?></p>
+                                        <p>Bid Count : <?php echo $count ?></p>
+                                        <p>Higher Bidder : <?php echo $musername ?></p>
                                         <p>Bidding Ends</p>
-                                        <p>Map URL</p>
-                                        <button class="btn btn-primary mr-2">View Bid History</button>
+                                        
+                                        <!-- <button class="btn btn-primary mr-2">View Bid History</button> -->
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
                                             Place BID
                                         </button>
@@ -129,13 +143,22 @@ $result = mysqli_query($db_conn, $sql);
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Modal Heading</h4>
+                    <h4 class="modal-title">Place BID</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    Modal body..
+                    <h4>Enter Your bid more than <?php echo $maxbid+1 ?></h4>
+                    <form action="placebid.php" method="post">
+                        <input type="hidden" name="userid" value="<?php echo $userid; ?>">
+                        <input type="hidden" name="postid" value="<?php echo $id; ?>">
+                        <div class="mb-3 mt-3">
+                            <label for="bid" class="form-label">Enter your BID:</label>
+                            <input type="number" min="<?php echo $maxbid+1 ?>" class="form-control" id="bid" placeholder="Enter your bid" name="bid">
+                        </div>
+                        <button class="btn btn-primary" type="submit">Place</button>
+                    </form>
                 </div>
 
                 <!-- Modal footer -->

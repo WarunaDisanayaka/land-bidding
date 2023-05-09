@@ -36,7 +36,7 @@ $result = mysqli_query($db_conn, $sql);
 
         <div class="container mt-5">
             <div class="row">
-               <h2>My Bidding</h2>
+                <h2>My Bidding</h2>
                 <div class="col-sm-12">
                     <div class="table-responsive">
                         <table class="table">

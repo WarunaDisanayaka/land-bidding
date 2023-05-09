@@ -1,4 +1,10 @@
+<?php 
 
+session_start();
+
+$name = $_SESSION['name'];
+
+?>
 <!-- Header -->
    <!--Main Navigation-->
    <header>
@@ -9,7 +15,7 @@
                <p class="text-light px-4 my-3">Edit Profile</p>
                <p class="text-light px-4 my-3"><a href="viewpost.php">View Post</a></p>
                <p class="text-light px-4 my-3"><a href="createpost.php">Create Post</a></p>
-               <p class="text-light px-4 my-3 py-2">My bidding</p>
+               <p class="text-light px-4 my-3 py-2"><a href="mybidding.php">My bidding</a></p>
             </div>
          </div>
       </nav>
@@ -31,7 +37,7 @@
 
                <!-- Name -->
                <a class="nav-link text-light" href="#">
-                  <h5>Ser Criston Cole's Account</h5>
+                  <h5><?php echo $name ?>'s Account</h5>
                </a>
 
                <!-- Icon -->
