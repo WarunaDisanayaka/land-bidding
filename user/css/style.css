@@ -41,6 +41,11 @@ body {
   }
 }
 
+.sidebar a{
+  color: white;
+  text-decoration: none;
+}
+
 .sidebar .active {
   border-radius: 0px;
   background-color: #33893C;
@@ -73,6 +78,19 @@ h1 {
   transform: translate(-50%, -50%);
 }
 
+
+
+.form-control,
+.form-select {
+  background: transparent;
+  border: none;
+  width: 30rem;
+  border-bottom: 1px solid #000000;
+  outline: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
 /* Profile */
 .profile-data label {
   font-weight: bold;
@@ -80,7 +98,8 @@ h1 {
 
 .profile-data input,
 .form-select,
-#datepicker, #floatingTextarea2 {
+#datepicker,
+#floatingTextarea2 {
   border-radius: 0;
   background-color: #ABDE78;
   width: 30rem;
@@ -91,4 +110,10 @@ h1 {
   main {
     padding-left: 240px;
   }
+}
+
+/* createpost */
+
+.createpost{
+  margin-left: 5rem;
 }

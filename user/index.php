@@ -28,9 +28,9 @@
         <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse ">
             <div class="position-sticky item">
                 <div class="list-group list-group-flush mt-4">
-                    <p class="text-light px-4 my-3">Edit Profile</p>
-                    <p class="text-light px-4 my-3">Create Post</p>
-                    <p class="text-light px-4 my-3 py-2 ripple active">My bidding</p>
+                    <p class="text-light px-4 my-3 py-2 ripple active"> <a href="index.php">Edit Profile</a> </p>
+                    <p class="text-light px-4 my-3"><a href="createpost.php">Create Post</a></p>
+                    <p class="text-light px-4 my-3 "><a href="index.php">My bidding</a></p>
                 </div>
             </div>
         </nav>
