@@ -1,3 +1,11 @@
+<?php
+
+include "./config/db.php";
+
+$sql = "SELECT * FROM posts";
+
+$result = mysqli_query($db_conn, $sql);
+?>
 <!doctype html>
 <html lang="en">
    <head>
@@ -24,7 +32,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                <ul class="navbar-nav">
                   <li class="nav-item">
-                     <a class="nav-link" href="#">Home<i class="fas fa-home"></i> </a>
+                     <a class="nav-link" href="index.php">Home<i class="fas fa-home"></i> </a>
                   </li>
                   <li class="nav-item">
                      <a class="nav-link" href="#">Lands<i class="fas fa-map-pin"></i> </a>
@@ -43,7 +51,32 @@
          </div>
       </nav>
       <!-- Post box -->
-      <div class="container post-box">
+      <?php
+      foreach ($result as $r) {
+         ?>
+         <div class="container post-box">
+            <div class="row">
+               <div class="col-lg-3">
+                  <img src="./img/post1.png" alt="Image" class="img-fluid  mb-3">
+               </div>
+               <div class="col-lg-6">
+                  <h2><?php echo $r['title'] ?></h2>
+                  <p><?php echo $r['des'] ?></p>
+               </div>
+               <div class="col-lg-3">
+                  <div class="text-end mb-3">
+                     <span class="text-muted">Bidding pending</span>
+                     <p><?php echo $r['start'] ?></p>
+                     <a href="post.php?id=<?php echo $r['id'] ?>" class="btn btn-primary">See More</a>
+
+                  </div>
+               </div>
+            </div>
+         </div>
+         <?php
+      }
+      ?>
+      <!-- <div class="container post-box">
          <div class="row">
             <div class="col-lg-3">
                <img src="./img/post1.png" alt="Image" class="img-fluid  mb-3">
@@ -60,25 +93,7 @@
                </div>
             </div>
          </div>
-      </div>
-      <div class="container post-box">
-         <div class="row">
-            <div class="col-lg-3">
-               <img src="./img/post1.png" alt="Image" class="img-fluid  mb-3">
-            </div>
-            <div class="col-lg-6">
-               <h2>Title</h2>
-               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse auctor, libero in tincidunt auctor, sapien nunc dictum purus, vel tristique tortor justo ut tellus. Sed eleifend quam nec tellus tempor, id ultrices nisl consectetur. Sed nec purus arcu. Nam eu turpis vitae ipsum fermentum suscipit vel vel libero.</p>
-            </div>
-            <div class="col-lg-3">
-               <div class="text-end mb-3">
-                  <span class="text-muted">April 24, 2023</span>
-                  <p>Some text here</p>
-                  <button class="btn btn-primary">See More</button>
-               </div>
-            </div>
-         </div>
-      </div>
+      </div> -->
       <!-- Footer -->
       <footer class="text-white">
          <div class="container">
