@@ -1,3 +1,17 @@
+<?php
+
+include "./config/db.php";
+
+if (isset($_GET['id'])) {
+   $post_id = $_GET['id'];
+
+   $sql = "SELECT * FROM posts WHERE id='$post_id'";
+
+   $result = mysqli_query($db_conn, $sql);
+
+}
+
+?>
 <!doctype html>
 <html lang="en">
 
@@ -25,7 +39,7 @@
          <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                <li class="nav-item">
-                  <a class="nav-link" href="#">Home<i class="fas fa-home"></i> </a>
+                  <a class="nav-link" href="index.php">Home<i class="fas fa-home"></i> </a>
                </li>
                <li class="nav-item">
                   <a class="nav-link" href="#">Lands<i class="fas fa-map-pin"></i> </a>
@@ -83,61 +97,46 @@
                </div>
             </div>
          </div>
-         <div class="details">
-            <h2>For Rent 2 Quarter Grain Land RM 68 and RM 69</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ornare tempus aliquet. Pellentesque
-               finibus, est et iaculis suscipit, dolor nulla commodo dui, nec ultricies arcu nisl tristique eros. Morbi
-               eros est, pulvinar eget ornare ac, ultrices eget risus. Ut lobortis pellentesque pretium. Praesent
-               sollicitudin vestibulum iaculis. Mauris a finibus orci. Quisque ipsum nunc, efficitur sit amet blandit
-               ut, aliquam quis dui.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ornare tempus
-               aliquet. Pellentesque finibus, est et iaculis suscipit, dolor nulla commodo dui, nec ultricies arcu nisl
-               tristique eros. Morbi eros est, pulvinar eget ornare ac, ultrices eget risus. Ut lobortis pellentesque
-               pretium. Praesent sollicitudin vestibulum iaculis. Mauris a finibus orci. Quisque ipsum nunc, efficitur
-               sit amet blandit ut, aliquam quis dui.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-               ornare tempus aliquet. Pellentesque finibus, est et iaculis suscipit, dolor nulla commodo dui, nec
-               ultricies arcu nisl tristique eros. Morbi eros est, pulvinar eget ornare ac, ultrices eget risus. Ut
-               lobortis pellentesque pretium. Praesent sollicitudin vestibulum iaculis. Mauris a finibus orci. Quisque
-               ipsum nunc, efficitur sit amet blandit ut, aliquam quis dui.Lorem ipsum dolor sit amet, consectetur
-               adipiscing elit. Etiam ornare tempus aliquet. Pellentesque finibus, est et iaculis suscipit, dolor nulla
-               commodo dui, nec ultricies arcu nisl tristique eros. Morbi eros est, pulvinar eget ornare ac, ultrices
-               eget risus. Ut lobortis pellentesque pretium. Praesent sollicitudin vestibulum iaculis. Mauris a finibus
-               orci. Quisque ipsum nunc, efficitur sit amet blandit ut, aliquam quis dui.Lorem ipsum dolor sit amet,
-               consectetur adipiscing elit. Etiam ornare tempus aliquet. Pellentesque finibus, est et iaculis suscipit,
-               dolor nulla commodo dui, nec ultricies arcu nisl tristique eros. Morbi eros est, pulvinar eget ornare ac,
-               ultrices eget risus. Ut lobortis pellentesque pretium. Praesent sollicitudin vestibulum iaculis. Mauris a
-               finibus orci. Quisque ipsum nunc, efficitur sit amet blandit ut, aliquam quis dui.</p>
-         </div>
-         <div class="col">
-            <div class="row">
-               <div class="col-6">
-                  <div class="box1">
-                     <h3>Property Details</h3>
-                     <p>Address</p>
-                     <p>Lease type</p>
-                     <p>Start Date</p>
-                     <p>Nearest Town</p>
-                     <p>Map URL</p>
+         <?php
+         while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+            <div class="details">
+               <h2><?php echo $row['title'] ?></h2>
+               <p><?php echo $row['des'] ?></p>
+            </div>
+            <div class="col">
+               <div class="row">
+                  <div class="col-6">
+                     <div class="box1">
+                        <h3>Property Details</h3>
+                        <p>Address :<?php echo $row['address'] ?></p>
+                        <p>Lease type :<?php echo $row['lease'] ?></p>
+                        <p>Start Date: <?php echo $row['start'] ?></p>
+                        <p>Nearest Town: <?php echo $row['town'] ?></p>
+                        <p>Map URL: <?php echo $row['map'] ?></p>
+                     </div>
                   </div>
                </div>
-            </div>
-            <div class="row mt-3">
-               <div class="col-6">
-                  <div class="box2">
-                     <h3>Bidding Details</h3>
-                     <div class="mt-4">
-                        <p>Current Bid</p>
-                        <p>Bid Count</p>
-                        <p>Higher Bidder</p>
-                        <p>Bidding Ends</p>
-                        <p>Map URL</p>
-                        <button class="btn btn-primary mr-2">View Bid History</button>
-                        <button class="btn btn-secondary">Place Bids</button>
+               <div class="row mt-3">
+                  <div class="col-6">
+                     <div class="box2">
+                        <h3>Bidding Details</h3>
+                        <div class="mt-4">
+                           <p>Current Bid</p>
+                           <p>Bid Count</p>
+                           <p>Higher Bidder</p>
+                           <p>Bidding Ends</p>
+                           <p>Map URL</p>
+                           <button class="btn btn-primary mr-2">View Bid History</button>
+                           <button class="btn btn-secondary">Place Bids</button>
+                        </div>
                      </div>
                   </div>
                </div>
             </div>
-         </div>
-
+            <?php
+         }
+         ?>
       </div>
    </div>
    <!-- Footer -->
