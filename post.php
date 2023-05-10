@@ -1,6 +1,14 @@
 <?php
+session_start();
 
 include "./config/db.php";
+
+$userid = $_SESSION['userid'];
+
+if (!isset($$_SESSION['userid'])) {
+   header("Location: login.php");
+   exit();
+}
 
 if (isset($_GET['id'])) {
    $post_id = $_GET['id'];
@@ -8,6 +16,23 @@ if (isset($_GET['id'])) {
    $sql = "SELECT * FROM posts WHERE id='$post_id'";
 
    $result = mysqli_query($db_conn, $sql);
+
+   $bidsql = "SELECT MAX(bid) AS max_bid, userid, COUNT(*) AS bid_count FROM bids WHERE postid = $post_id";
+
+
+   $max = mysqli_query($db_conn, $bidsql);
+   $maxbid = "";
+   $muser = "";
+   $count = "";
+   foreach ($max as $m) {
+      $maxbid = $m['max_bid'];
+      $muser = $m['userid'];
+      $count = $m['bid_count'];
+   }
+
+   $musql = "SELECT name FROM users WHERE id = $muser";
+   $maxuser = mysqli_query($db_conn, $musql);
+   $musername = "";
 
 }
 
@@ -100,45 +125,80 @@ if (isset($_GET['id'])) {
          <?php
          while ($row = mysqli_fetch_assoc($result)) {
             ?>
-            <div class="details">
-               <h2><?php echo $row['title'] ?></h2>
-               <p><?php echo $row['des'] ?></p>
-            </div>
-            <div class="col">
-               <div class="row">
-                  <div class="col-6">
-                     <div class="box1">
-                        <h3>Property Details</h3>
-                        <p>Address :<?php echo $row['address'] ?></p>
-                        <p>Lease type :<?php echo $row['lease'] ?></p>
-                        <p>Start Date: <?php echo $row['start'] ?></p>
-                        <p>Nearest Town: <?php echo $row['town'] ?></p>
-                        <p>Map URL: <?php echo $row['map'] ?></p>
-                     </div>
-                  </div>
-               </div>
-               <div class="row mt-3">
-                  <div class="col-6">
-                     <div class="box2">
-                        <h3>Bidding Details</h3>
-                        <div class="mt-4">
-                           <p>Current Bid</p>
-                           <p>Bid Count</p>
-                           <p>Higher Bidder</p>
-                           <p>Bidding Ends</p>
-                           <p>Map URL</p>
-                           <button class="btn btn-primary mr-2">View Bid History</button>
-                           <button class="btn btn-secondary">Place Bids</button>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <?php
+                                    <div class="details">
+                                       <h2><?php echo $row['title'] ?></h2>
+                                       <p><?php echo $row['des'] ?></p>
+                                    </div>
+                                    <div class="col">
+                                       <div class="row">
+                                          <div class="col-6">
+                                             <div class="box1">
+                                                <h3>Property Details</h3>
+                                                <p>Address :<?php echo $row['address'] ?></p>
+                                                <p>Lease type :<?php echo $row['lease'] ?></p>
+                                                <p>Start Date: <?php echo $row['start'] ?></p>
+                                                <p>Nearest Town: <?php echo $row['town'] ?></p>
+                                                <p>Map URL: <?php echo $row['map'] ?></p>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row mt-3">
+                                          <div class="col-6">
+                                             <div class="box2">
+                                                <h3>Bidding Details</h3>
+                                                <div class="mt-4">
+                                                <p>Current Bid : <?php echo $maxbid ?></p>
+                                                       <p>Bid Count : <?php echo $count ?></p>
+                                                       <p>Higher Bidder : <?php echo $musername ?></p>
+                                                       <p>Bidding Ends in <span id="countdown"></span></p>
+
+                                    
+                                                   <button class="btn btn-primary mr-2">View Bid History</button>
+                                                   <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal">Place Bids</button>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <?php
          }
          ?>
       </div>
    </div>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Place BID</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h4>Enter Your bid more than <?php echo $maxbid + 1 ?></h4>
+                    <form action="placebid.php" method="post">
+                        <input type="hidden" name="userid" value="<?php echo $userid; ?>">
+                        <input type="hidden" name="postid" value="<?php echo $id; ?>">
+                        <div class="mb-3 mt-3">
+                            <label for="bid" class="form-label">Enter your BID:</label>
+                            <input type="number" min="<?php echo $maxbid + 1 ?>" class="form-control" id="bid" placeholder="Enter your bid" name="bid">
+                        </div>
+                        <button class="btn btn-primary" type="submit">Place</button>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
    <!-- Footer -->
    <footer class="text-white">
       <div class="container">
@@ -183,6 +243,35 @@ if (isset($_GET['id'])) {
          <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
          -->
+         <script>
+// Set the date and time for the bidding end
+var biddingEnd = new Date("May 20, 2023 12:00:00").getTime();
+
+// Update the countdown every second
+var countdown = setInterval(function() {
+
+  // Get the current date and time
+  var now = new Date().getTime();
+
+  // Calculate the remaining time
+  var remainingTime = biddingEnd - now;
+
+  // Calculate the days, hours, minutes, and seconds
+  var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+  // Display the remaining time in the countdown element
+  document.getElementById("countdown").innerHTML =  hours + "h " + minutes + "m " + seconds + "s ";
+
+  // If the bidding has ended, display a message and stop the countdown
+  if (remainingTime < 0) {
+    clearInterval(countdown);
+    document.getElementById("countdown").innerHTML = "Bidding has ended!";
+  }
+}, 1000);
+</script>
 </body>
 
 </html>
