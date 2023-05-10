@@ -39,7 +39,7 @@ $result = mysqli_query($db_conn, $sql);
                 <div class="list-group list-group-flush mt-4">
                     <p class="text-light px-4 my-3 py-2 ripple active"> <a href="index.php">View Users</a> </p>
                     <p class="text-light px-4 my-3"><a href="postapprovevals.php">Post Approvals</a></p>
-                    <p class="text-light px-4 my-3 "><a href="index.php">View bidding history</a></p>
+                    <p class="text-light px-4 my-3 "><a href="mybidding.php">My bidding</a></p>
                 </div>
             </div>
         </nav>

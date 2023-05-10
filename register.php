@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $uploadPath = 'uploads/'; // set your upload path here
         $filename = uniqid() . '_' . $id_proof['name'];
         $destination = $uploadPath . $filename;
-        if (!move_uploaded_file($id_proof['tmp_name'], $destination)) {
+        if (!move_uploaded_file($document['tmp_name'], $destination)) {
             $errors[] = 'Failed to upload the document. Please try again.';
         }
 
@@ -100,13 +100,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             die('Database error: ' . mysqli_error($db_conn));
         }
 
-        mysqli_stmt_bind_param($stmt, 'ssdsssss', $name, $email, $phone, $dob, $gender, $address, $filename, $hashed_password);
+        mysqli_stmt_bind_param($stmt, 'ssdsssss', $name, $email, $phone, $dob, $gender, $address, $filename, $password);
 
 
         // Execute insert query
         if (mysqli_stmt_execute($stmt)) {
             // Redirect to success page
-            header('Location: login.php');
+            header('Location: success.php');
             exit;
         } else {
             die('Database error: ' . mysqli_error($db_conn));
