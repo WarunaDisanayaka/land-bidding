@@ -1,6 +1,11 @@
 <?php
 include "../config/db.php";
 
+if (!isset($$_SESSION['userid'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
 $sql = "SELECT * FROM users";
 
 $result = mysqli_query($db_conn, $sql);
@@ -40,6 +45,9 @@ $result = mysqli_query($db_conn, $sql);
                     <p class="text-light px-4 my-3 py-2 ripple active"> <a href="index.php">View Users</a> </p>
                     <p class="text-light px-4 my-3"><a href="postapprovevals.php">Post Approvals</a></p>
                     <p class="text-light px-4 my-3 "><a href="index.php">View bidding history</a></p>
+                </div>
+                <div class="list-group list-group-flush mt-4">
+                    <p class="text-light px-4 my-3 py-2 ripple"> <a href="logout.php">Logout</a> </p>
                 </div>
             </div>
         </nav>
@@ -95,14 +103,14 @@ $result = mysqli_query($db_conn, $sql);
                             </thead>
                             <tbody>
                                 <?php foreach ($result as $r) { ?>
-                                        <tr>
-                                            <td><?php echo $r['name']; ?></td>
-                                            <td>
-                                                <select>
-                                                    <option>Active</option>
-                                                </select>
-                                        </td>
-                                        </tr>
+                                                    <tr>
+                                                        <td><?php echo $r['name']; ?></td>
+                                                        <td>
+                                                            <select>
+                                                                <option>Active</option>
+                                                            </select>
+                                                    </td>
+                                                    </tr>
                                 <?php } ?>
                             </tbody>
                         </table>

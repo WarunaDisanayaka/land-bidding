@@ -125,42 +125,42 @@ if (isset($_GET['id'])) {
          <?php
          while ($row = mysqli_fetch_assoc($result)) {
             ?>
-                                       <div class="details">
-                                          <h2><?php echo $row['title'] ?></h2>
-                                          <p><?php echo $row['des'] ?></p>
-                                       </div>
-                                       <div class="col">
-                                          <div class="row">
-                                             <div class="col-6">
-                                                <div class="box1">
-                                                   <h3>Property Details</h3>
-                                                   <p>Address :<?php echo $row['address'] ?></p>
-                                                   <p>Lease type :<?php echo $row['lease'] ?></p>
-                                                   <p>Start Date: <?php echo $row['start'] ?></p>
-                                                   <p>Nearest Town: <?php echo $row['town'] ?></p>
-                                                   <p>Map URL: <?php echo $row['map'] ?></p>
+                                          <div class="details">
+                                             <h2><?php echo $row['title'] ?></h2>
+                                             <p><?php echo $row['des'] ?></p>
+                                          </div>
+                                          <div class="col">
+                                             <div class="row">
+                                                <div class="col-6">
+                                                   <div class="box1">
+                                                      <h3>Property Details</h3>
+                                                      <p>Address :<?php echo $row['address'] ?></p>
+                                                      <p>Lease type :<?php echo $row['lease'] ?></p>
+                                                      <p>Start Date: <?php echo $row['start'] ?></p>
+                                                      <p>Nearest Town: <?php echo $row['town'] ?></p>
+                                                      <p>Map URL: <?php echo $row['map'] ?></p>
+                                                   </div>
                                                 </div>
                                              </div>
-                                          </div>
-                                          <div class="row mt-3">
-                                             <div class="col-6">
-                                                <div class="box2">
-                                                   <h3>Bidding Details</h3>
-                                                   <div class="mt-4">
-                                                   <p>Current Bid : <?php echo $maxbid ?></p>
-                                                          <p>Bid Count : <?php echo $count ?></p>
-                                                          <p>Higher Bidder : <?php echo $musername ?></p>
-                                                          <p>Bidding Ends in <span id="countdown"></span></p>
+                                             <div class="row mt-3">
+                                                <div class="col-6">
+                                                   <div class="box2">
+                                                      <h3>Bidding Details</h3>
+                                                      <div class="mt-4">
+                                                      <p>Current Bid : <?php echo $maxbid ?></p>
+                                                             <p>Bid Count : <?php echo $count ?></p>
+                                                             <p>Higher Bidder : <?php echo $musername ?></p>
+                                                             <p>Bidding Ends in <span id="countdown"></span></p>
 
                                     
-                                                      <button class="btn btn-primary mr-2">View Bid History</button>
-                                                      <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal">Place Bids</button>
+                                                         <button class="btn btn-primary mr-2">View Bid History</button>
+                                                         <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal">Place Bids</button>
+                                                      </div>
                                                    </div>
                                                 </div>
                                              </div>
                                           </div>
-                                       </div>
-                                       <?php
+                                          <?php
          }
          ?>
       </div>
@@ -185,7 +185,7 @@ if (isset($_GET['id'])) {
                         <input type="hidden" name="postid" value="<?php echo $id; ?>">
                         <div class="mb-3 mt-3">
                             <label for="bid" class="form-label">Enter your BID:</label>
-                            <input type="number" min="<?php echo $maxbid + 1 ?>" class="form-control" id="bid" placeholder="Enter your bid" name="bid">
+                            <input type="number" min="<?php echo $maxbid ?>" class="form-control" id="bid" placeholder="Enter your bid" name="bid">
                         </div>
                         <button class="btn btn-primary" type="submit">Place</button>
                     </form>

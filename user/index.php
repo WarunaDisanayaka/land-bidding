@@ -1,3 +1,12 @@
+<?php
+include "../config/db.php";
+
+if (!isset($$_SESSION['userid'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
+?>
 <!doctype html>
 <html lang="en">
 

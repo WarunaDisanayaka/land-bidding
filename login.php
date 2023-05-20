@@ -24,11 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Redirect to index page after successful login
             if ($row['role'] == 1) {
-                header('Location: admin/admin.php');
-            }else{
-                header('Location: user/dashboard.php');
+                header('Location: admin/');
+            } else {
+                header('Location: user/');
             }
-            
+
             exit;
         } else {
             // Incorrect password
@@ -67,11 +67,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <label for="email" class="form-label">Email or phone</label>
                             <input type="email" class="form-control" id="email" name="email" required>
                             <p class="text" style="color:red;"> 
-                                <?php 
-                                    if(isset($error_message)){
-                                        echo $error_message ;
-                                    }
-                                    
+                                <?php
+                                if (isset($error_message)) {
+                                    echo $error_message;
+                                }
+
                                 ?>
                             </p>
                         </div>
